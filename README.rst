@@ -7,8 +7,6 @@ Ansible playbooks for testing clusters running on OpenStack.
 Installation
 ============
 
-Preparation
-
 Ensure that Ansible is installed, either via the system package manager or pip.
 If required, use a virtualenv to avoid interference with the system python
 packages. For example:
