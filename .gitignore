@@ -99,3 +99,7 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# Ignore Galaxy roles.
+ansible/roles/stackhpc.os-shade/
+ansible/roles/stackhpc.cluster-infra/

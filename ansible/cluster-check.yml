@@ -1,0 +1,36 @@
+---
+- name: Check that the cluster has been provisioned correctly
+  hosts: cluster
+  gather_facts: False
+  tasks:
+    - name: Scan for SSH keys
+      local_action:
+        module: command ssh-keyscan {{ item }}
+      with_items:
+        - "{{ ansible_host|default(inventory_hostname) }}"
+      register: keyscan_result
+      changed_when: False
+
+    - name: Ensure SSH keys are in known hosts
+      local_action:
+        module: known_hosts
+        host: "{{ item[0].item }}"
+        key: "{{ item[1] }}"
+      with_subelements:
+        - "{{ keyscan_result.results }}"
+        - stdout_lines
+
+    - name: Check that the cluster hosts are accessible
+      ping:
+
+    - name: Ping a host by IP across the Internet
+      command: ping -c 1 8.8.8.8
+
+    - name: Ping a host by name across the Internet
+      command: ping -c 1 google.com
+
+    - name: Ping other hosts in the cluster
+      command: ping -c 1 {{ hostvars[item].ansible_host }}
+      with_inventory_hostnames:
+        - cluster
+      when: item != inventory_hostname

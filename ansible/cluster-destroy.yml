@@ -1,0 +1,17 @@
+---
+- name: Ensure cluster infrastructure is destroyed
+  hosts: localhost
+  vars:
+    venv: "{{ lookup('env', 'VIRTUAL_ENV') }}"
+  tasks:
+    - include_role:
+        role: stackhpc.os-shade
+      vars:
+        os_shade_venv: "{{ venv }}"
+        os_shade_install_epel: False
+        os_shade_install_package_dependencies: False
+
+    - include_role:
+        name: stackhpc.cluster-infra
+      vars:
+        cluster_state: absent

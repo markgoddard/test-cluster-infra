@@ -1,0 +1,16 @@
+---
+- name: Ensure cluster infrastructure is created
+  hosts: localhost
+  tasks:
+    - include_role:
+        role: stackhpc.os-shade
+      vars:
+        os_shade_venv: "{{ cluster_venv }}"
+        os_shade_install_epel: False
+        os_shade_install_package_dependencies: False
+
+    - include_role:
+        name: stackhpc.cluster-infra
+
+    - name: Refresh the inventory to pull in the cluster hosts
+      meta: refresh_inventory
