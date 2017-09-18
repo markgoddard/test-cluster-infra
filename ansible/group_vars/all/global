@@ -1,0 +1,6 @@
+---
+# Virtualenv in which to install python dependencies.
+cluster_venv: "{{ lookup('env', 'VIRTUAL_ENV') }}"
+
+# Create an inventory file for the cluster in our inventory directory.
+cluster_inventory: "{{ playbook_dir }}/inventory/inventory_{{ cluster_name }}"
