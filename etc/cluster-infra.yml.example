@@ -1,0 +1,27 @@
+---
+# Name to give the Heat stack
+cluster_name: example-cluster
+
+cluster_params:
+  # Name prefix to use for instance hostname construction.
+  cluster_prefix: example-cluster
+
+  # This parameter should be set to the name of an RSA keypair you have
+  # uploaded to OpenStack.
+  cluster_keypair: my-key
+
+  # Site-specific network configuration.
+  cluster_net:
+    - { net: "demo", subnet: "demo" }
+
+  # Multi-node application topology. In this case we have a 
+  # single group of baremetal compute nodes.
+  cluster_groups:
+    - "{{ compute }}"
+
+compute:
+  name: "compute"
+  flavor: "m1.small"
+  image: "CentOS7"
+  user: "centos"
+  num_nodes: 1
