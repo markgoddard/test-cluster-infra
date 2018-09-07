@@ -25,12 +25,18 @@
 
     - name: Ping a host by IP across the Internet
       command: ping -c 1 8.8.8.8
+      become: true
+      changed_when: false
 
     - name: Ping a host by name across the Internet
       command: ping -c 1 google.com
+      become: true
+      changed_when: false
 
     - name: Ping other hosts in the cluster
       command: ping -c 1 {{ hostvars[item].ansible_host }}
       with_inventory_hostnames:
         - cluster
       when: item != inventory_hostname
+      become: true
+      changed_when: false
