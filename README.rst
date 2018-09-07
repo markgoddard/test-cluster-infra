@@ -24,7 +24,7 @@ Install Ansible role dependencies from Ansible Galaxy:
 
    ansible-galaxy install \
        -p ansible/roles \
-       -r ansible/requirements.yml
+       -r requirements.yml
 
 Configuration
 =============
